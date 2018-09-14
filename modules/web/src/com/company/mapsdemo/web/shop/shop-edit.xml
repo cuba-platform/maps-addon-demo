@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd"
+        caption="msg://editorCaption"
+        class="com.company.mapsdemo.web.shop.ShopEdit"
+        datasource="shopDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.mapsdemo.web.shop">
+    <dsContext>
+        <datasource id="shopDs"
+                    class="com.company.mapsdemo.entity.Shop"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="shopDs">
+            <column width="250px">
+                <field property="name"/>
+            </column>
+        </fieldGroup>
+        <button id="button"
+                caption="Move marker"
+                stylename="danger"
+                invoke="moveMarker"
+                disableOnClick="true"/>
+        <maps:map id="map"
+                  height="400px"
+                  width="100%"/>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>
