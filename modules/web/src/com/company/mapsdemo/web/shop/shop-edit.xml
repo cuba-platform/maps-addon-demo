@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd"
         caption="msg://editorCaption"
         class="com.company.mapsdemo.web.shop.ShopEdit"
         datasource="shopDs"
         focusComponent="fieldGroup"
-        messagesPack="com.company.mapsdemo.web.shop">
+        messagesPack="com.company.mapsdemo.web.shop"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
     <dsContext>
         <datasource id="shopDs"
                     class="com.company.mapsdemo.entity.Shop"
@@ -21,11 +21,14 @@
                 <field property="name"/>
             </column>
         </fieldGroup>
+        <label value="Location"/>
+        <textField id="x" caption="x"
+                   datatype="double"/>
+        <textField id="y" caption="y"
+                   datatype="double"/>
         <button id="button"
-                caption="Move marker"
-                stylename="danger"
-                invoke="moveMarker"
-                disableOnClick="true"/>
+                caption="Apply location"
+                invoke="applyLocation"/>
         <maps:map id="map"
                   height="400px"
                   width="100%"/>

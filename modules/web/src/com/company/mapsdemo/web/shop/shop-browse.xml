@@ -4,7 +4,8 @@
         class="com.company.mapsdemo.web.shop.ShopBrowse"
         focusComponent="shopsTable"
         lookupComponent="shopsTable"
-        messagesPack="com.company.mapsdemo.web.shop">
+        messagesPack="com.company.mapsdemo.web.shop"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
     <dsContext>
         <groupDatasource id="shopsDs"
                          class="com.company.mapsdemo.entity.Shop"
@@ -45,5 +46,8 @@
                         action="shopsTable.remove"/>
             </buttonsPanel>
         </groupTable>
+        <maps:map id="map"
+                  height="600px"
+                  width="100%"/>
     </layout>
 </window>
