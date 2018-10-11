@@ -1,21 +1,19 @@
 package com.company.mapsdemo.web.shop;
 
 import com.company.mapsdemo.entity.Shop;
-import com.haulmont.addon.maps.gis.CRS;
-import com.haulmont.addon.maps.gis.Point;
+import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.addon.maps.web.gui.components.WebMap;
 import com.haulmont.addon.maps.web.gui.components.layer.PointLayer;
-import com.haulmont.addon.maps.web.gui.components.layer.WMSTileLayer;
+import com.haulmont.addon.maps.web.gui.components.layer.TileLayer;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.TextField;
-import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Point;
 
 import javax.inject.Inject;
-import java.io.File;
-import java.util.Objects;
 
 public class ShopEdit extends AbstractEditor<Shop> {
     @Inject
@@ -37,23 +35,28 @@ public class ShopEdit extends AbstractEditor<Shop> {
         super.initNewItem(item);
         x.setValue(46.005163D);
         y.setValue(51.532268D);
-        item.setLocation(new Point( x.getValue(), y.getValue()));
+        item.setLocation(GeometryUtils.getGeometryFactory().createPoint(new Coordinate(x.getValue(), y.getValue())));
     }
 
     @Override
     protected void postInit() {
-        map.setCenter(getItem().getGeoData());
+        map.setCenter(getItem().getLocation());
         map.setZoomLevel(15.1);
 
-        x.setValue(getItem().getLocation().getGeometry().getCoordinate().x);
-        y.setValue(getItem().getLocation().getGeometry().getCoordinate().y);
+        x.setValue(getItem().getLocation().getCoordinate().x);
+        y.setValue(getItem().getLocation().getCoordinate().y);
 
-        WMSTileLayer wmsTileLayer = new WMSTileLayer();
-        wmsTileLayer.setUrl("http://129.206.228.72/cached/osm?");
-        wmsTileLayer.setLayers("osm_auto:all");
-        wmsTileLayer.setFormat("image/png");
-        wmsTileLayer.setAttributionString("Provided by http://www.osm-wms.de");
-        map.addLayer(wmsTileLayer);
+//        WMSTileLayer wmsTileLayer = new WMSTileLayer();
+//        wmsTileLayer.setUrl("http://129.206.228.72/cached/osm?");
+//        wmsTileLayer.setLayers("osm_auto:all");
+//        wmsTileLayer.setFormat("image/png");
+//        wmsTileLayer.setAttributionString("Provided by http://www.osm-wms.de");
+//        map.addLayer(wmsTileLayer);
+
+        TileLayer tileLayer = new TileLayer();
+        tileLayer.setUrl("https://maps.omniscale.net/v2/maps-demo-60e580b0/style.default/{z}/{x}/{y}.png");
+        tileLayer.setAttributionString("Provided by omniscale.com");
+        map.addLayer(tileLayer);
 
         pointLayer = new PointLayer<>(getItem());
 
@@ -68,7 +71,7 @@ public class ShopEdit extends AbstractEditor<Shop> {
     }
 
     public void applyLocation() {
-        Point newLocation = new Point(x.getValue(), y.getValue());
+        Point newLocation = GeometryUtils.getGeometryFactory().createPoint(new Coordinate(x.getValue(), y.getValue()));
         map.setCenter(newLocation);
         getItem().setLocation(newLocation);
         pointLayer.refresh();

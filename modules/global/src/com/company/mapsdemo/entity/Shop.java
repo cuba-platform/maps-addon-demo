@@ -1,12 +1,13 @@
 package com.company.mapsdemo.entity;
 
+import com.haulmont.addon.maps.gis.GeoField;
 import com.haulmont.addon.maps.gis.GeoObject;
-import com.haulmont.addon.maps.gis.Point;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPointWKTConverter;
 import com.haulmont.addon.maps.gis.datatypes.PointDatatype;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.vividsolutions.jts.geom.Point;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @NamePattern("%s|name")
 @Table(name = "MAPSDEMO_SHOP")
 @Entity(name = "mapsdemo$Shop")
-public class Shop extends StandardEntity implements GeoObject<Point> {
+public class Shop extends StandardEntity implements GeoObject {
     private static final long serialVersionUID = -7246131885124785043L;
 
     @Column(name = "NAME")
@@ -25,6 +26,7 @@ public class Shop extends StandardEntity implements GeoObject<Point> {
     @MetaProperty(datatype = PointDatatype.NAME)
     @Column(name = "LOCATION")
     @Convert(converter = CubaPointWKTConverter.class)
+    @GeoField
     protected Point location;
 
     public void setLocation(Point location) {
@@ -42,11 +44,5 @@ public class Shop extends StandardEntity implements GeoObject<Point> {
 
     public String getName() {
         return name;
-    }
-
-
-    @Override
-    public Point getGeoData() {
-        return getLocation();
     }
 }
