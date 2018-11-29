@@ -2,6 +2,10 @@
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <menu id="application-mapsdemo"
           insertBefore="administration">
-        <item screen="mapsdemo$Shop.browse"/>
+        <item screen="map"/>
+        <separator/>
+        <item screen="mapsdemo$Territory.browse"/>
+        <item screen="mapsdemo$Salesperson.browse"/>
+        <item screen="mapsdemo$Order.browse"/>
     </menu>
 </menu-config>

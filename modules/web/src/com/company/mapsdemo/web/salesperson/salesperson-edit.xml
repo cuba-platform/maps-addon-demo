@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="com.company.mapsdemo.web.salesperson.SalespersonEdit"
+        datasource="salespersonDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.mapsdemo.web.salesperson"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <dsContext>
+        <datasource id="salespersonDs"
+                    class="com.company.mapsdemo.entity.Salesperson"
+                    view="salesperson-view"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <hbox spacing="true">
+            <vbox spacing="true">
+                <fieldGroup id="fieldGroup"
+                            datasource="salespersonDs">
+                    <column width="250px">
+                        <field property="name"/>
+                        <field property="phone"/>
+                        <field property="territory"/>
+                    </column>
+                </fieldGroup>
+                <button id="removeLocationButton"
+                        align="TOP_RIGHT"
+                        caption="msg://removeLocation"
+                        invoke="removeLocation"/>
+            </vbox>
+            <maps:geoMap id="map"
+                         height="400px"
+                         width="800px"/>
+        </hbox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

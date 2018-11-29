@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
-    <screen id="mapsdemo$Shop.browse"
-            template="com/company/mapsdemo/web/shop/shop-browse.xml"/>
-    <screen id="mapsdemo$Shop.edit"
-            template="com/company/mapsdemo/web/shop/shop-edit.xml"/>
+    <screen id="mapsdemo$Territory.browse"
+            template="com/company/mapsdemo/web/territory/territory-browse.xml"/>
+    <screen id="mapsdemo$Territory.edit"
+            template="com/company/mapsdemo/web/territory/territory-edit.xml"/>
+    <screen id="mapsdemo$Salesperson.browse"
+            template="com/company/mapsdemo/web/salesperson/salesperson-browse.xml"/>
+    <screen id="mapsdemo$Salesperson.edit"
+            template="com/company/mapsdemo/web/salesperson/salesperson-edit.xml"/>
+    <screen id="mapsdemo$Order.browse"
+            template="com/company/mapsdemo/web/order/order-browse.xml"/>
+    <screen id="mapsdemo$Order.edit"
+            template="com/company/mapsdemo/web/order/order-edit.xml"/>
+    <screen id="map"
+            template="com/company/mapsdemo/web/screens/map.xml"/>
 </screen-config>

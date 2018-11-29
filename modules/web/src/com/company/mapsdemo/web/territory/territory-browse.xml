@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
-        class="com.company.mapsdemo.web.shop.ShopBrowse"
-        focusComponent="shopsTable"
-        lookupComponent="shopsTable"
-        messagesPack="com.company.mapsdemo.web.shop"
-        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+        class="com.company.mapsdemo.web.territory.TerritoryBrowse"
+        focusComponent="territoriesTable"
+        lookupComponent="territoriesTable"
+        messagesPack="com.company.mapsdemo.web.territory">
     <dsContext>
-        <groupDatasource id="shopsDs"
-                         class="com.company.mapsdemo.entity.Shop"
+        <groupDatasource id="territoriesDs"
+                         class="com.company.mapsdemo.entity.Territory"
                          view="_local">
             <query>
-                <![CDATA[select e from mapsdemo$Shop e]]>
+                <![CDATA[select e from mapsdemo$Territory e]]>
             </query>
         </groupDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="shopsTable"
+    <layout expand="territoriesTable"
             spacing="true">
         <filter id="filter"
-                applyTo="shopsTable"
-                datasource="shopsDs">
+                applyTo="territoriesTable"
+                datasource="territoriesDs">
             <properties include=".*"/>
         </filter>
-        <groupTable id="shopsTable"
+        <groupTable id="territoriesTable"
                     width="100%">
             <actions>
                 <action id="create"/>
@@ -34,20 +33,17 @@
             <columns>
                 <column id="name"/>
             </columns>
-            <rows datasource="shopsDs"/>
+            <rows datasource="territoriesDs"/>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn"
-                        action="shopsTable.create"/>
+                        action="territoriesTable.create"/>
                 <button id="editBtn"
-                        action="shopsTable.edit"/>
+                        action="territoriesTable.edit"/>
                 <button id="removeBtn"
-                        action="shopsTable.remove"/>
+                        action="territoriesTable.remove"/>
             </buttonsPanel>
         </groupTable>
-        <maps:map id="map"
-                  height="600px"
-                  width="100%"/>
     </layout>
 </window>
