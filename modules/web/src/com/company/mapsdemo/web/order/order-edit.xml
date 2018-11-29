@@ -31,11 +31,22 @@
                         <field property="salesperson"/>
                     </column>
                 </fieldGroup>
-                <button id="removeLocationButton"
-                        align="TOP_RIGHT"
-                        enable="false"
-                        caption="msg://removeLocation"
-                        invoke="removeLocation"/>
+                <vbox spacing="true"
+                      width="164px">
+                    <label value="Location"/>
+                    <textField id="xCoordinate"
+                               caption="msg://x"
+                               datatype="geocoordinate"/>
+                    <textField id="yCoordinate"
+                               caption="msg://y"
+                               datatype="geocoordinate"/>
+                    <button id="applyLocation"
+                            caption="Apply location"
+                            invoke="applyLocation"/>
+                    <button id="removeLocationButton"
+                            caption="msg://removeLocation"
+                            invoke="removeLocation"/>
+                </vbox>
             </vbox>
             <maps:geoMap id="map"
                          height="400px"

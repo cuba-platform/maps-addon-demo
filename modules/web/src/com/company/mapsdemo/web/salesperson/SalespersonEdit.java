@@ -14,7 +14,9 @@ import com.haulmont.cuba.core.sys.AppContext;
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.PickerField;
+import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.icons.CubaIcon;
+import com.vividsolutions.jts.geom.Point;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,6 +28,12 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
 
     @Named("fieldGroup.territory")
     private PickerField territoryField;
+
+    @Inject
+    private TextField xCoordinate;
+
+    @Inject
+    private TextField yCoordinate;
 
     @Inject
     private Button removeLocationButton;
@@ -70,7 +78,7 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
 
     @Override
     protected void postInit() {
-        if (getItem().getLocation()!=null) {
+        if (getItem().getLocation() != null) {
             map.setCenter(getItem().getLocation());
         } else {
             map.setCenter(GeometryUtils.createPoint(-99.755859, 39.164141));
@@ -79,6 +87,7 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
 
         locationLayer.add(getItem());
         removeLocationButton.setEnabled(getItem().getLocation() != null);
+        initLocationChangedListener();
     }
 
     @Override
@@ -114,9 +123,36 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
         });
     }
 
+    private void initLocationChangedListener() {
+        getItem().addPropertyChangeListener(e -> {
+            if ("location".equals(e.getProperty())) {
+                Point newValue = (Point) e.getValue();
+                if (newValue == null) {
+                    xCoordinate.setValue(null);
+                    yCoordinate.setValue(null);
+                } else {
+                    removeLocationButton.setEnabled(true);
+                    xCoordinate.setValue(newValue.getX());
+                    yCoordinate.setValue(newValue.getY());
+                }
+            }
+        });
+    }
+
     public void removeLocation() {
         getItem().setLocation(null);
         locationLayer.refresh();
         removeLocationButton.setEnabled(false);
+    }
+
+    public void applyLocation() {
+        if (xCoordinate.getValue() == null || yCoordinate.getValue() == null) {
+            showNotification("Coordinate fields shouldn't be empty");
+            return;
+        }
+        Point newLocation = GeometryUtils.createPoint(xCoordinate.getValue(), yCoordinate.getValue());
+        map.setCenter(newLocation);
+        getItem().setLocation(newLocation);
+        locationLayer.refresh();
     }
 }
