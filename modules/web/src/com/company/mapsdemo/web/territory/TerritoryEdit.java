@@ -39,7 +39,8 @@ public class TerritoryEdit extends AbstractEditor<Territory> {
             initDrawingMode();
         } else {
             removePolygonButton.setEnabled(true);
-//            map.unwrap(LMap.class).zoomToContent();
+            map.setCenter(getItem().getPolygon().getCentroid());
+            map.setZoomLevel(6);
         }
     }
 
