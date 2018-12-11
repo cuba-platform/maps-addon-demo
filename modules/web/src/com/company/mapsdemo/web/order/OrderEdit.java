@@ -14,17 +14,18 @@ import com.haulmont.cuba.gui.components.TextField;
 import com.vividsolutions.jts.geom.Point;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Map;
 
 public class OrderEdit extends AbstractEditor<Order> {
     @Inject
     private GeoMap map;
 
-    @Inject
-    private TextField xCoordinate;
+    @Named("fieldGroup.latitude")
+    private TextField latitudeField;
 
-    @Inject
-    private TextField yCoordinate;
+    @Named("fieldGroup.longitude")
+    private TextField longitudeField;
 
     @Inject
     private Button removeLocationButton;
@@ -71,12 +72,12 @@ public class OrderEdit extends AbstractEditor<Order> {
             if ("location".equals(e.getProperty())) {
                 Point newValue = (Point) e.getValue();
                 if (newValue == null) {
-                    xCoordinate.setValue(null);
-                    yCoordinate.setValue(null);
+                    longitudeField.setValue(null);
+                    latitudeField.setValue(null);
                 } else {
                     removeLocationButton.setEnabled(true);
-                    xCoordinate.setValue(newValue.getX());
-                    yCoordinate.setValue(newValue.getY());
+                    longitudeField.setValue(newValue.getX());
+                    latitudeField.setValue(newValue.getY());
                 }
             }
         });
@@ -89,13 +90,13 @@ public class OrderEdit extends AbstractEditor<Order> {
     }
 
     public void applyLocation() {
-        if (xCoordinate.getValue() == null || yCoordinate.getValue() == null) {
-            showNotification("Coordinate fields shouldn't be empty");
+        if (longitudeField.getValue() == null || latitudeField.getValue() == null) {
+            showNotification("Coordinate fields should be filled");
             return;
         }
-        Point newLocation = GeometryUtils.createPoint(xCoordinate.getValue(), yCoordinate.getValue());
-        map.setCenter(newLocation);
-        getItem().setLocation(newLocation);
+        if (getItem().getLocation() != null) {
+            map.setCenter(getItem().getLocation());
+        }
         locationLayer.refresh();
     }
 }

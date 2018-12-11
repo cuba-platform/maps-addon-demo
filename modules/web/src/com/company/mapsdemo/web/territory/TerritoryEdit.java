@@ -45,7 +45,7 @@ public class TerritoryEdit extends AbstractEditor<Territory> {
     }
 
     private void initDrawingMode() {
-        map.setCenter(GeometryUtils.createPoint(-99.755859, 39.164141));
+        map.setCenter(GeometryUtils.createPoint(-99.755859,39.164141));
         map.setZoomLevel(4);
         map.addPolygonDrawnListener(event -> {
             getItem().setPolygon(event.getPolygon());

@@ -1,8 +1,9 @@
 package com.company.mapsdemo.entity;
 
+import com.company.mapsdemo.datatype.GeoCoordinateDatatype;
 import com.haulmont.addon.maps.gis.GeoField;
-import com.haulmont.addon.maps.gis.GeoObject;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPointWKTConverter;
+import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @NamePattern("%s|name")
 @Table(name = "MAPSDEMO_SALESPERSON")
 @Entity(name = "mapsdemo$Salesperson")
-public class Salesperson extends StandardEntity implements GeoObject {
+public class Salesperson extends StandardEntity {
     private static final long serialVersionUID = -149427681303945265L;
 
     @Column(name = "NAME")
@@ -57,6 +58,38 @@ public class Salesperson extends StandardEntity implements GeoObject {
 
     public Point getLocation() {
         return location;
+    }
+
+    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    public Double getLatitude() {
+        if (location == null) return null;
+        return location.getY();
+    }
+
+    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    public Double getLongitude() {
+        if (location == null) return null;
+        return location.getX();
+    }
+
+    @MetaProperty
+    public void setLatitude(Double latitude) {
+        if (latitude == null) latitude = 0D;
+        if (location == null) {
+            location = GeometryUtils.createPoint(0, latitude);
+        } else {
+            location = GeometryUtils.createPoint(location.getX(), latitude);
+        }
+    }
+
+    @MetaProperty
+    public void setLongitude(Double longitude) {
+        if (longitude == null) longitude = 0D;
+        if (location == null) {
+            location = GeometryUtils.createPoint(0, longitude);
+        } else {
+            location = GeometryUtils.createPoint(longitude, location.getY());
+        }
     }
 
     public void setTerritory(Territory territory) {

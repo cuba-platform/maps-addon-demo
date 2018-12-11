@@ -23,24 +23,18 @@
                         <field property="name"/>
                         <field property="phone"/>
                         <field property="territory"/>
+                        <field property="latitude" caption="msg://latitude"/>
+                        <field property="longitude" caption="msg://longitude"/>
                     </column>
                 </fieldGroup>
-                <vbox spacing="true"
-                      width="164px">
-                    <label value="Location"/>
-                    <textField id="xCoordinate"
-                               caption="msg://x"
-                               datatype="geocoordinate"/>
-                    <textField id="yCoordinate"
-                               caption="msg://y"
-                               datatype="geocoordinate"/>
-                    <button id="applyLocation"
-                            caption="Apply location"
-                            invoke="applyLocation"/>
-                    <button id="removeLocationButton"
-                            caption="msg://removeLocation"
-                            invoke="removeLocation"/>
-                </vbox>
+                <button id="applyLocation"
+                        align="TOP_RIGHT"
+                        caption="Apply location"
+                        invoke="applyLocation"/>
+                <button id="removeLocationButton"
+                        align="TOP_RIGHT"
+                        caption="msg://removeLocation"
+                        invoke="removeLocation"/>
             </vbox>
             <maps:geoMap id="map"
                          height="400px"

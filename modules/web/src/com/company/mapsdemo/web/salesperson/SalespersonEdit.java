@@ -11,10 +11,7 @@ import com.haulmont.addon.maps.web.gui.components.layer.style.FontMarkerIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
 import com.haulmont.cuba.core.sys.AppContext;
-import com.haulmont.cuba.gui.components.AbstractEditor;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.PickerField;
-import com.haulmont.cuba.gui.components.TextField;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.vividsolutions.jts.geom.Point;
 
@@ -30,13 +27,13 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
     private PickerField territoryField;
 
     @Inject
-    private TextField xCoordinate;
-
-    @Inject
-    private TextField yCoordinate;
-
-    @Inject
     private Button removeLocationButton;
+
+    @Named("fieldGroup.latitude")
+    private TextField latitudeField;
+
+    @Named("fieldGroup.longitude")
+    private TextField longitudeField;
 
     private PolygonLayer<Territory> territoryLayer = new PolygonLayer<>();
 
@@ -113,28 +110,28 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
         });
     }
 
+    private void initLocationChangedListener() {
+        getItem().addPropertyChangeListener(e -> {
+            if ("location".equals(e.getProperty())) {
+                Point newValue = (Point) e.getValue();
+                if (newValue == null) {
+                    longitudeField.setValue(null);
+                    latitudeField.setValue(null);
+                } else {
+                    removeLocationButton.setEnabled(true);
+                    longitudeField.setValue(newValue.getX());
+                    latitudeField.setValue(newValue.getY());
+                }
+            }
+        });
+    }
+
     private void initMapClickListener() {
         map.addMapClickListener(event -> {
             if (getItem().getLocation() == null) {
                 getItem().setLocation(event.getPoint());
                 locationLayer.refresh();
                 removeLocationButton.setEnabled(true);
-            }
-        });
-    }
-
-    private void initLocationChangedListener() {
-        getItem().addPropertyChangeListener(e -> {
-            if ("location".equals(e.getProperty())) {
-                Point newValue = (Point) e.getValue();
-                if (newValue == null) {
-                    xCoordinate.setValue(null);
-                    yCoordinate.setValue(null);
-                } else {
-                    removeLocationButton.setEnabled(true);
-                    xCoordinate.setValue(newValue.getX());
-                    yCoordinate.setValue(newValue.getY());
-                }
             }
         });
     }
@@ -146,13 +143,13 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
     }
 
     public void applyLocation() {
-        if (xCoordinate.getValue() == null || yCoordinate.getValue() == null) {
-            showNotification("Coordinate fields shouldn't be empty");
+        if (longitudeField.getValue() == null || latitudeField.getValue() == null) {
+            showNotification("Coordinate fields should be filled");
             return;
         }
-        Point newLocation = GeometryUtils.createPoint(xCoordinate.getValue(), yCoordinate.getValue());
-        map.setCenter(newLocation);
-        getItem().setLocation(newLocation);
+        if (getItem().getLocation() != null) {
+            map.setCenter(getItem().getLocation());
+        }
         locationLayer.refresh();
     }
 }

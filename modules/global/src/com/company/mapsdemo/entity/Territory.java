@@ -1,7 +1,6 @@
 package com.company.mapsdemo.entity;
 
 import com.haulmont.addon.maps.gis.GeoField;
-import com.haulmont.addon.maps.gis.GeoObject;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPolygonWKTConverter;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 @NamePattern("%s|name")
 @Table(name = "MAPSDEMO_TERRITORY")
 @Entity(name = "mapsdemo$Territory")
-public class Territory extends StandardEntity implements GeoObject {
+public class Territory extends StandardEntity {
     private static final long serialVersionUID = -1660135364445075710L;
 
     @Column(name = "NAME")

@@ -15,12 +15,17 @@ import com.haulmont.cuba.gui.components.AbstractLookup;
 import com.haulmont.cuba.gui.components.GroupTable;
 import com.haulmont.cuba.gui.data.GroupDatasource;
 import com.haulmont.cuba.gui.icons.CubaIcon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.UUID;
 
 public class SalespersonBrowse extends AbstractLookup {
+
+    private Logger log = LoggerFactory.getLogger(SalespersonBrowse.class);
+
     @Inject
     private GroupDatasource<Salesperson, UUID> salespersonsDs;
 
@@ -65,23 +70,24 @@ public class SalespersonBrowse extends AbstractLookup {
 
     @Override
     public void ready() {
-        salespersonLayer.add(salespersonsDs.getItems());
-
-        salespersonsDs.addCollectionChangeListener(e -> {
-            switch (e.getOperation()) {
-                case ADD:
-                    salespersonLayer.add(e.getItems());
-                    break;
-                case REMOVE:
-                    for (Salesperson salesperson : e.getItems()) {
-                        salespersonLayer.remove(salesperson);
-                    }
-                    break;
-                case UPDATE:
-                    e.getItems().forEach(salespersonLayer::remove);
-                    salespersonLayer.add(e.getItems());
-                    break;
-            }
-        });
+//        salespersonLayer.add(salespersonsDs.getItems());
+//
+//        salespersonsDs.addCollectionChangeListener(e -> {
+//            switch (e.getOperation()) {
+//                case ADD:
+//                    salespersonLayer.add(e.getItems());
+//                    break;
+//                case REMOVE:
+//                    for (Salesperson salesperson : e.getItems()) {
+//                        salespersonLayer.remove(salesperson);
+//                    }
+//                    break;
+//                case UPDATE:
+//                    e.getItems().forEach(salespersonLayer::remove);
+//                    salespersonLayer.add(e.getItems());
+//                    break;
+//            }
+//        });
+        salespersonLayer.setDatasource(salespersonsDs);
     }
 }
