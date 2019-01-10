@@ -40,7 +40,7 @@ public class OrderBrowse extends AbstractLookup {
         heatMapLayerStyle.setMaxZoom(7D);
         heatMapLayerStyle.setRadius(35);
         heatMapLayer.setStyle(heatMapLayerStyle);
-        heatMapLayer.add(ordersDs.getItems());
+        heatMapLayer.setDatasource(ordersDs);
         map.addLayer(heatMapLayer);
     }
 }

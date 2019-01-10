@@ -24,8 +24,6 @@ import java.util.UUID;
 
 public class SalespersonBrowse extends AbstractLookup {
 
-    private Logger log = LoggerFactory.getLogger(SalespersonBrowse.class);
-
     @Inject
     private GroupDatasource<Salesperson, UUID> salespersonsDs;
 
@@ -70,24 +68,6 @@ public class SalespersonBrowse extends AbstractLookup {
 
     @Override
     public void ready() {
-//        salespersonLayer.add(salespersonsDs.getItems());
-//
-//        salespersonsDs.addCollectionChangeListener(e -> {
-//            switch (e.getOperation()) {
-//                case ADD:
-//                    salespersonLayer.add(e.getItems());
-//                    break;
-//                case REMOVE:
-//                    for (Salesperson salesperson : e.getItems()) {
-//                        salespersonLayer.remove(salesperson);
-//                    }
-//                    break;
-//                case UPDATE:
-//                    e.getItems().forEach(salespersonLayer::remove);
-//                    salespersonLayer.add(e.getItems());
-//                    break;
-//            }
-//        });
         salespersonLayer.setDatasource(salespersonsDs);
     }
 }
