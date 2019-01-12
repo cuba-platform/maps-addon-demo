@@ -3,7 +3,7 @@ package com.company.mapsdemo.datatype;
 import com.haulmont.chile.core.datatypes.Datatypes;
 import com.haulmont.chile.core.datatypes.FormatStrings;
 import com.haulmont.chile.core.datatypes.impl.DoubleDatatype;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
 
 import java.text.DecimalFormat;

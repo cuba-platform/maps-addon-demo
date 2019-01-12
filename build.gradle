@@ -36,7 +36,7 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'com.company.mapsdemo'
-        version = '0.1'
+        version = '0.2'
         isSnapshot = true
     }
     tomcat {
@@ -46,7 +46,7 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
-    appComponent("com.haulmont.addon.maps:maps-global:0.1-SNAPSHOT")
+    appComponent("com.haulmont.addon.maps:maps-global:0.2-SNAPSHOT")
 
 }
 

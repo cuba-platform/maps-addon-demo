@@ -63,7 +63,6 @@ public class SalespersonBrowse extends AbstractLookup {
 
         map.setCenter(GeometryUtils.createPoint(-99.755859, 39.164141));
         map.setZoomLevel(4);
-        map.addMarkerClickListener(event -> salespersonsTable.setSelected((Salesperson) event.getEntity()));
     }
 
     @Override

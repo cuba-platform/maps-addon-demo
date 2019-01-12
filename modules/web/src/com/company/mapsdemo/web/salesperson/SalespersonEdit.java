@@ -24,16 +24,16 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
     private GeoMap map;
 
     @Named("fieldGroup.territory")
-    private PickerField territoryField;
+    private PickerField<Territory> territoryField;
 
     @Inject
     private Button removeLocationButton;
 
     @Named("fieldGroup.latitude")
-    private TextField latitudeField;
+    private TextField<Double> latitudeField;
 
     @Named("fieldGroup.longitude")
-    private TextField longitudeField;
+    private TextField<Double> longitudeField;
 
     private PolygonLayer<Territory> territoryLayer = new PolygonLayer<>();
 
@@ -102,10 +102,10 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
 
     private void addTerritoryFieldChangeListener() {
         territoryField.addValueChangeListener(e -> {
-            Object oldValue = e.getPrevValue();
-            if (oldValue != null) territoryLayer.remove(((Territory) oldValue));
-            Object newValue = e.getValue();
-            if (newValue != null) territoryLayer.add(((Territory) newValue));
+            Territory oldValue = e.getPrevValue();
+            if (oldValue != null) territoryLayer.remove(oldValue);
+            Territory newValue = e.getValue();
+            if (newValue != null) territoryLayer.add(newValue);
             territoryLayer.refresh();
         });
     }
