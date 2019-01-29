@@ -7,8 +7,12 @@
     <dialogMode height="600"
                 width="800"/>
     <layout>
-        <maps:geoMap id="map"
-                     height="100%"
-                     width="100%"/>
+        <maps:geoMap id="map" height="100%" width="100%" zoom="3">
+            <maps:layers>
+                <maps:tile id="tiles"
+                           urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                           attribution="CARTO"/>
+            </maps:layers>
+        </maps:geoMap>
     </layout>
 </window>

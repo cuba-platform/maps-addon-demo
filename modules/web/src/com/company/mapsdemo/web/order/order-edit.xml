@@ -29,24 +29,20 @@
                         <field property="amount"/>
                         <field property="date"/>
                         <field property="salesperson"/>
-                        <field caption="msg://latitude"
-                               property="latitude"/>
-                        <field caption="msg://longitude"
-                               property="longitude"/>
                     </column>
                 </fieldGroup>
                 <button id="applyLocation"
                         align="TOP_RIGHT"
-                        caption="Apply location"
-                        invoke="applyLocation"/>
-                <button id="removeLocationButton"
-                        align="TOP_RIGHT"
-                        caption="msg://removeLocation"
-                        invoke="removeLocation"/>
+                        caption="Apply location"/>
             </vbox>
-            <maps:geoMap id="map"
-                         height="400px"
-                         width="800px"/>
+            <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
+                <maps:layers selectedLayer="orderLayer">
+                    <maps:tile id="tiles"
+                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                               attribution="CARTO"/>
+                    <maps:vector id="orderLayer" datasource="orderDs" editable="true"/>
+                </maps:layers>
+            </maps:geoMap>
         </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>

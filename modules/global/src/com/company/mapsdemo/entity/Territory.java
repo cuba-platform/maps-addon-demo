@@ -1,6 +1,6 @@
 package com.company.mapsdemo.entity;
 
-import com.haulmont.addon.maps.gis.GeoField;
+import com.haulmont.addon.maps.gis.Geometry;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPolygonWKTConverter;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
@@ -22,7 +22,7 @@ public class Territory extends StandardEntity {
     protected String name;
 
     @Convert(converter = CubaPolygonWKTConverter.class)
-    @GeoField
+    @Geometry
     @MetaProperty(datatype = "GeoPolygon")
     @Column(name = "POLYGON")
     protected Polygon polygon;

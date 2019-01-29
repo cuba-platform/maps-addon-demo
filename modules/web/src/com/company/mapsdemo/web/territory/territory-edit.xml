@@ -21,16 +21,20 @@
                             datasource="territoryDs">
                     <column width="250px">
                         <field property="name"/>
+                        <field property="polygon"/>
                     </column>
                 </fieldGroup>
-                <button id="removePolygonButton"
-                        enable="false"
-                        caption="msg://removePolygon"
-                        invoke="removePolygon"/>
             </vbox>
-            <maps:geoMap id="map"
-                         height="400px"
-                         width="800px"/>
+            <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
+                <maps:layers selectedLayer="territory">
+                    <maps:tile id="tiles"
+                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                                attribution="CARTO"/>
+                    <maps:vector id="territory"
+                                 datasource="territoryDs"
+                                 editable="true"/>
+                </maps:layers>
+            </maps:geoMap>
         </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>

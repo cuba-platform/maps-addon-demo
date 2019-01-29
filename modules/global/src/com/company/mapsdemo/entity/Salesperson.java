@@ -1,7 +1,7 @@
 package com.company.mapsdemo.entity;
 
 import com.company.mapsdemo.datatype.GeoCoordinateDatatype;
-import com.haulmont.addon.maps.gis.GeoField;
+import com.haulmont.addon.maps.gis.Geometry;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPointWKTConverter;
 import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.chile.core.annotations.MetaProperty;
@@ -28,7 +28,7 @@ public class Salesperson extends StandardEntity {
     @MetaProperty(datatype = "GeoPoint")
     @Convert(converter = CubaPointWKTConverter.class)
     @Column(name = "LOCATION")
-    @GeoField
+    @Geometry
     protected Point location;
 
     @ManyToOne(fetch = FetchType.LAZY)

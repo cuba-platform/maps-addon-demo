@@ -9,7 +9,9 @@
     <dsContext>
         <datasource id="salespersonDs"
                     class="com.company.mapsdemo.entity.Salesperson"
-                    view="salesperson-view"/>
+                    view="salesperson-view">
+            <datasource id="territoryDs" property="territory"/>
+        </datasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -23,22 +25,28 @@
                         <field property="name"/>
                         <field property="phone"/>
                         <field property="territory"/>
-                        <field property="latitude" caption="msg://latitude"/>
-                        <field property="longitude" caption="msg://longitude"/>
+                        <!--<field property="latitude" caption="msg://latitude" />-->
+                        <!--<field property="longitude" caption="msg://longitude"/>-->
                     </column>
                 </fieldGroup>
-                <button id="applyLocation"
-                        align="TOP_RIGHT"
-                        caption="Apply location"
-                        invoke="applyLocation"/>
+                <!--<button id="applyLocation"-->
+                        <!--align="TOP_RIGHT"-->
+                        <!--caption="Apply location"-->
+                        <!--invoke="applyLocation"/>-->
                 <button id="removeLocationButton"
                         align="TOP_RIGHT"
                         caption="msg://removeLocation"
                         invoke="removeLocation"/>
             </vbox>
-            <maps:geoMap id="map"
-                         height="400px"
-                         width="800px"/>
+            <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
+                <maps:layers selectedLayer="salespersonLayer">
+                    <maps:tile id="tiles"
+                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                               attribution="CARTO"/>
+                    <maps:vector id="territoryLayer" datasource="territoryDs"/>
+                    <maps:vector id="salespersonLayer" datasource="salespersonDs" editable="true"/>
+                </maps:layers>
+            </maps:geoMap>
         </hbox>
         <frame id="windowActions"
                screen="editWindowActions"/>

@@ -1,18 +1,17 @@
 package com.company.mapsdemo.web.order;
 
 import com.company.mapsdemo.entity.Order;
-import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
-import com.haulmont.addon.maps.web.gui.components.layer.HeatMapLayer;
-import com.haulmont.addon.maps.web.gui.components.layer.TileLayer;
-import com.haulmont.addon.maps.web.gui.components.layer.style.HeatMapLayerStyle;
-import com.haulmont.cuba.core.sys.AppContext;
+import com.haulmont.addon.maps.web.gui.components.HeatMapOptions;
 import com.haulmont.cuba.gui.components.AbstractLookup;
 import com.haulmont.cuba.gui.data.GroupDatasource;
+import com.vividsolutions.jts.geom.Point;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class OrderBrowse extends AbstractLookup {
     @Inject
@@ -22,25 +21,17 @@ public class OrderBrowse extends AbstractLookup {
     private GroupDatasource<Order, UUID> ordersDs;
 
     @Override
-    public void init(Map<String, Object> params) {
-        TileLayer tileLayer = new TileLayer();
-        tileLayer.setUrl(AppContext.getProperty("maps.tileServerUrl"));
-        tileLayer.setAttributionString(AppContext.getProperty("maps.attribution"));
-        map.addLayer(tileLayer);
-
-        map.setCenter(GeometryUtils.createPoint(-99.755859, 39.164141));
-        map.setZoomLevel(4);
-    }
-
-    @Override
     public void ready() {
-        HeatMapLayer<Order> heatMapLayer = new HeatMapLayer<>();
-        HeatMapLayerStyle heatMapLayerStyle = new HeatMapLayerStyle();
-        heatMapLayerStyle.setMinOpacity(0.3);
-        heatMapLayerStyle.setMaxZoom(7D);
-        heatMapLayerStyle.setRadius(35);
-        heatMapLayer.setStyle(heatMapLayerStyle);
-        heatMapLayer.setDatasource(ordersDs);
-        map.addLayer(heatMapLayer);
+        HeatMapOptions options = new HeatMapOptions();
+        options.setMinOpacity(0.3);
+        options.setMaxZoom(7D);
+        options.setRadius(35);
+        options.setMaximumIntensity(500D);
+
+        Collection<Order> items = ordersDs.getItems();
+        Map<Point, Double> intensityMap = items.stream().collect(
+                Collectors.toMap(Order::getLocation,
+                        order -> order.getAmount() != null ? order.getAmount() : 0));
+        map.addHeatMap(intensityMap, options);
     }
 }
