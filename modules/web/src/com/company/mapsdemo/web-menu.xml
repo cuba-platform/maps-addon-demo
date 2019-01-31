@@ -3,6 +3,7 @@
     <menu id="application-mapsdemo"
           insertBefore="administration">
         <item screen="map"/>
+        <item screen="mapsdemo_CanvasDemo"/>
         <separator/>
         <item screen="mapsdemo$Territory.browse"/>
         <item screen="mapsdemo$Salesperson.browse"/>

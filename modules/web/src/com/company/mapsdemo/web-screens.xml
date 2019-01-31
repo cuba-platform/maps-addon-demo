@@ -14,4 +14,5 @@
             template="com/company/mapsdemo/web/order/order-edit.xml"/>
     <screen id="map"
             template="com/company/mapsdemo/web/screens/map.xml"/>
+    <screen id="mapsdemo_CanvasDemo" template="com/company/mapsdemo/web/screens/canvas-demo.xml"/>
 </screen-config>
