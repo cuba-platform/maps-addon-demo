@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.haulmont.demo.maps.web.territory.TerritoryBrowse"
+        focusComponent="territoriesTable"
+        lookupComponent="territoriesTable"
+        messagesPack="com.haulmont.demo.maps.web.territory">
+    <dsContext>
+        <groupDatasource id="territoriesDs"
+                         class="com.haulmont.demo.maps.entity.Territory"
+                         view="_local">
+            <query>
+                <![CDATA[select e from mapsdemo$Territory e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="territoriesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="territoriesTable"
+                datasource="territoriesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="territoriesTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+            </columns>
+            <rows datasource="territoriesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="territoriesTable.create"/>
+                <button id="editBtn"
+                        action="territoriesTable.edit"/>
+                <button id="removeBtn"
+                        action="territoriesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.haulmont.demo.maps.web.salesperson.SalespersonBrowse"
+        focusComponent="salespersonsTable"
+        lookupComponent="salespersonsTable"
+        messagesPack="com.haulmont.demo.maps.web.salesperson"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <dsContext>
+        <groupDatasource id="salespersonsDs"
+                         class="com.haulmont.demo.maps.entity.Salesperson"
+                         view="salesperson-view_1">
+            <query>
+                <![CDATA[select e from mapsdemo$Salesperson e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true">
+        <hbox height="100%"
+              spacing="true"
+              width="100%">
+            <vbox expand="salespersonsTable"
+                  height="100%"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="salespersonsTable"
+                        datasource="salespersonsDs">
+                    <properties include=".*"/>
+                </filter>
+                <groupTable id="salespersonsTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="name"/>
+                        <column id="phone"/>
+                        <column id="territory"/>
+                    </columns>
+                    <rows datasource="salespersonsDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="salespersonsTable.create"/>
+                        <button id="editBtn"
+                                action="salespersonsTable.edit"/>
+                        <button id="removeBtn"
+                                action="salespersonsTable.remove"/>
+                    </buttonsPanel>
+                </groupTable>
+            </vbox>
+            <maps:geoMap id="map" height="100%" width="100%" center="-99.755859, 39.164141" zoom="4">
+                <maps:layers>
+                    <maps:tile id="tiles"
+                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                               attribution="CARTO"/>
+                    <maps:vector id="salespersonLayer" datasource="salespersonsDs"/>
+                </maps:layers>
+            </maps:geoMap>
+        </hbox>
+    </layout>
+</window>
