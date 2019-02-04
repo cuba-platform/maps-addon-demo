@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata xmlns="http://schemas.haulmont.com/cuba/metadata.xsd">
+    <datatypes>
+        <datatype id="geocoordinate" class="com.haulmont.mapsdemo.datatype.GeoCoordinateDatatype"
+                  format="#0.000000" decimalSeparator="." groupingSeparator=""
+                  javaType="java.lang.Double"/>
+    </datatypes>
+    <metadata-model root-package="com.haulmont.mapsdemo" namespace="mapsdemo"/>
+</metadata>

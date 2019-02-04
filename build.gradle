@@ -35,7 +35,7 @@ apply(plugin: 'cuba')
 
 cuba {
     artifact {
-        group = 'com.company.mapsdemo'
+        group = 'com.haulmont.mapsdemo'
         version = '0.2'
         isSnapshot = true
     }
@@ -151,7 +151,7 @@ configure(webModule) {
 
     task deployConf(type: Copy) {
         from file('src')
-        include "com/company/mapsdemo/**"
+        include "com/haulmont/mapsdemo/**"
         into "$cuba.tomcat.dir/conf/${modulePrefix}"
     }
 
