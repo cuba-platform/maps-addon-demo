@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.haulmont.demo.maps.web.order.OrderBrowse"
+        focusComponent="ordersTable"
+        lookupComponent="ordersTable"
+        messagesPack="com.haulmont.demo.maps.web.order"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <dsContext>
+        <groupDatasource id="ordersDs"
+                         class="com.haulmont.demo.maps.entity.Order"
+                         view="order-view">
+            <query>
+                <![CDATA[select e from mapsdemo$Order e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true">
+        <hbox height="100%"
+              spacing="true"
+              width="100%">
+            <vbox expand="ordersTable"
+                  height="100%"
+                  spacing="true">
+                <filter id="filter"
+                        applyTo="ordersTable"
+                        datasource="ordersDs">
+                    <properties include=".*"/>
+                </filter>
+                <groupTable id="ordersTable"
+                            width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="amount"/>
+                        <column id="date"/>
+                        <column id="salesperson"/>
+                    </columns>
+                    <rows datasource="ordersDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="ordersTable.create"/>
+                        <button id="editBtn"
+                                action="ordersTable.edit"/>
+                        <button id="removeBtn"
+                                action="ordersTable.remove"/>
+                    </buttonsPanel>
+                </groupTable>
+            </vbox>
+            <maps:geoMap id="map" height="100%" width="100%" center="-99.755859, 39.164141" zoom="4">
+                <maps:layers>
+                    <maps:tile id="tiles"
+                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                               attribution="CARTO"/>
+                </maps:layers>
+            </maps:geoMap>
+        </hbox>
+    </layout>
+</window>
