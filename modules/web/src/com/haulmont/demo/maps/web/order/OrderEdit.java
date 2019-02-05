@@ -1,21 +1,26 @@
 package com.haulmont.demo.maps.web.order;
 
-import com.haulmont.demo.maps.entity.Order;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.layer.Layer;
 import com.haulmont.addon.maps.web.gui.components.layer.style.ImagePointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.screen.*;
+import com.haulmont.demo.maps.entity.Order;
 
 import javax.inject.Inject;
-import java.util.Map;
 
-public class OrderEdit extends AbstractEditor<Order> {
+
+@UiController("mapsdemo$Order.edit")
+@UiDescriptor("order-edit.xml")
+@EditedEntityContainer("orderDc")
+@LoadDataBeforeShow
+public class OrderEdit extends StandardEditor<Order> {
+
     @Inject
     private GeoMap map;
 
-    @Override
-    public void init(Map<String, Object> params) {
+    @Subscribe
+    protected void onInit(InitEvent event) {
         Layer orderLayer = map.getLayer("orderLayer");
         if (orderLayer != null) {
             ImagePointIcon icon = new ImagePointIcon("classpath:/com/haulmont/demo/maps/web/cuba_icon.png");
@@ -23,4 +28,5 @@ public class OrderEdit extends AbstractEditor<Order> {
             orderLayer.setStyle(new PointStyle(icon));
         }
     }
+
 }

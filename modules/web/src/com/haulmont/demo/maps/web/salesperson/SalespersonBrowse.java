@@ -1,22 +1,26 @@
 package com.haulmont.demo.maps.web.salesperson;
 
-import com.haulmont.demo.maps.entity.Salesperson;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.layer.VectorLayer;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
-import com.haulmont.cuba.gui.components.AbstractLookup;
 import com.haulmont.cuba.gui.icons.CubaIcon;
+import com.haulmont.cuba.gui.screen.*;
+import com.haulmont.demo.maps.entity.Salesperson;
 
 import javax.inject.Inject;
-import java.util.Map;
 
-public class SalespersonBrowse extends AbstractLookup {
+
+@UiController("mapsdemo$Salesperson.browse")
+@UiDescriptor("salesperson-browse.xml")
+@LookupComponent("salespersonsTable")
+@LoadDataBeforeShow
+public class SalespersonBrowse extends StandardLookup<Salesperson> {
     @Inject
     private GeoMap map;
 
-    @Override
-    public void init(Map<String, Object> params) {
+    @Subscribe
+    protected void onInit(InitEvent event) {
         VectorLayer<Salesperson> salespersonLayer = ((VectorLayer<Salesperson>) map.getLayer("salespersonLayer"));
         if (salespersonLayer != null) {
             FontPointIcon markerIcon = new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN);
@@ -28,5 +32,6 @@ public class SalespersonBrowse extends AbstractLookup {
             salespersonLayer.setPopupContentProvider(Salesperson::getName);
         }
     }
+
 
 }

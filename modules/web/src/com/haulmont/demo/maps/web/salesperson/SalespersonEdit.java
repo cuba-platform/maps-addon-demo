@@ -6,14 +6,19 @@ import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
 import com.haulmont.cuba.gui.Notifications;
-import com.haulmont.cuba.gui.components.AbstractEditor;
 import com.haulmont.cuba.gui.icons.CubaIcon;
+import com.haulmont.cuba.gui.model.DataContext;
+import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.demo.maps.entity.Salesperson;
 import com.haulmont.demo.maps.entity.Territory;
 
 import javax.inject.Inject;
 
-public class SalespersonEdit extends AbstractEditor<Salesperson> {
+@UiController("mapsdemo$Salesperson.edit")
+@UiDescriptor("salesperson-edit.xml")
+@EditedEntityContainer("salespersonDc")
+@LoadDataBeforeShow
+public class SalespersonEdit extends StandardEditor<Salesperson> {
 
     @Inject
     private Notifications notifications;
@@ -21,8 +26,8 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
     @Inject
     private GeoMap map;
 
-    @Override
-    protected void postInit() {
+    @Subscribe
+    protected void onAfterInit(AfterInitEvent event) {
         Layer territoryLayer = map.getLayer("territoryLayer");
         if (territoryLayer != null) {
             PolygonStyle polygonStyle = new PolygonStyle();
@@ -43,22 +48,18 @@ public class SalespersonEdit extends AbstractEditor<Salesperson> {
         }
     }
 
-    @Override
-    protected boolean preCommit() {
-        Territory territory = getItem().getTerritory();
+    @Subscribe(target = Target.DATA_CONTEXT)
+    protected void onPreCommit(DataContext.PreCommitEvent event) {
+        Territory territory = getEditedEntity().getTerritory();
         if (territory != null
                 && territory.getPolygon() != null
-                && getItem().getLocation() != null
-                && !getItem().getLocation().within(territory.getPolygon())) {
+                && getEditedEntity().getLocation() != null
+                && !getEditedEntity().getLocation().within(territory.getPolygon())) {
             notifications.create(Notifications.NotificationType.HUMANIZED)
                     .withCaption("Location should be within the specified territory")
                     .show();
-            return false;
+            event.preventCommit();
         }
-        return true;
     }
 
-    public void removeLocation() {
-        getItem().setLocation(null);
-    }
 }

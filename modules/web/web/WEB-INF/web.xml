@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-    <context-param>
-        <description>Web resources version for correct caching in browser</description>
-        <param-name>webResourcesTs</param-name>
-        <param-value>${webResourcesTs}</param-value>
-    </context-param>
+    
     <!-- Application properties config files -->
     <context-param>
         <param-name>appPropertiesConfig</param-name>
-        <param-value>classpath:com/haulmont/demo/maps/web-app.properties
+        <param-value>
+            classpath:com/haulmont/demo/maps/web-app.properties
             /WEB-INF/local.app.properties
-            "file:${catalina.base}/conf/app/local.app.properties"</param-value>
+            "file:${catalina.base}/conf/mapsdemo/local.app.properties"
+        </param-value>
     </context-param>
     <!--Application components-->
     <context-param>
@@ -53,6 +51,7 @@
         <servlet-name>rest_api</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>cuba_filter</filter-name>
         <filter-class>com.haulmont.cuba.web.sys.CubaHttpFilter</filter-class>
@@ -62,6 +61,7 @@
         <filter-name>cuba_filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <filter>
         <filter-name>restSpringSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
