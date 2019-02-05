@@ -84,8 +84,11 @@ public class Order extends StandardEntity {
         if (latitude == null) latitude = 0D;
         if (location == null) {
             location = GeometryUtils.createPoint(0, latitude);
+            propertyChanged("location", null, location);
         } else {
+            Point prevValue = location;
             location = GeometryUtils.createPoint(location.getX(), latitude);
+            propertyChanged("location", prevValue, location);
         }
     }
 
@@ -93,9 +96,12 @@ public class Order extends StandardEntity {
     public void setLongitude(Double longitude) {
         if (longitude == null) longitude = 0D;
         if (location == null) {
-            location = GeometryUtils.createPoint(0, longitude);
+            location = GeometryUtils.createPoint(longitude, 0);
+            propertyChanged("location", null, location);
         } else {
+            Point prevValue = location;
             location = GeometryUtils.createPoint(longitude, location.getY());
+            propertyChanged("location", prevValue, location);
         }
     }
 }

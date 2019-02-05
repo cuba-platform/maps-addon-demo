@@ -55,11 +55,13 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
                 && territory.getPolygon() != null
                 && getEditedEntity().getLocation() != null
                 && !getEditedEntity().getLocation().within(territory.getPolygon())) {
+            event.preventCommit();
             notifications.create(Notifications.NotificationType.HUMANIZED)
                     .withCaption("Location should be within the specified territory")
                     .show();
-            event.preventCommit();
         }
     }
+
+
 
 }
