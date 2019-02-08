@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
-        class="com.haulmont.demo.maps.web.territory.TerritoryEdit"
-        datasource="territoryDs"
-        focusComponent="fieldGroup"
+        focusComponent="form"
         messagesPack="com.haulmont.demo.maps.web.territory"
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
-    <dsContext>
-        <datasource id="territoryDs"
-                    class="com.haulmont.demo.maps.entity.Territory"
-                    view="_local"/>
-    </dsContext>
+    <data>
+        <instance id="territoryDc"
+                  class="com.haulmont.demo.maps.entity.Territory"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
+    <layout expand="editActions" spacing="true">
         <hbox spacing="true">
-            <vbox spacing="true">
-                <fieldGroup id="fieldGroup"
-                            datasource="territoryDs">
-                    <column width="250px">
-                        <field property="name"/>
-                        <field property="polygon"/>
-                    </column>
-                </fieldGroup>
-            </vbox>
+            <form id="form" dataContainer="territoryDc">
+                <column width="250px">
+                    <textField id="nameField" property="name"/>
+                </column>
+            </form>
             <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
                 <maps:layers selectedLayer="territory">
-                    <maps:tile id="tiles"
-                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                                attribution="CARTO"/>
-                    <maps:vector id="territory"
-                                 datasource="territoryDs"
-                                 editable="true"/>
+                    <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                    <maps:vector id="territory" dataContainer="territoryDc" editable="true"/>
                 </maps:layers>
             </maps:geoMap>
         </hbox>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>

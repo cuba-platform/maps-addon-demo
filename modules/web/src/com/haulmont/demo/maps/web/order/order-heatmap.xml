@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://heatMapCaption"
+        messagesPack="com.haulmont.demo.maps.web.order"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <data readOnly="true">
+        <collection id="ordersDc"
+                    class="com.haulmont.demo.maps.entity.Order"
+                    view="_local">
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from mapsdemo$Order e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <maps:geoMap id="map" height="100%" width="100%" zoom="3" center="-99.755859, 39.164141">
+            <maps:layers>
+                <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+            </maps:layers>
+        </maps:geoMap>
+    </layout>
+</window>

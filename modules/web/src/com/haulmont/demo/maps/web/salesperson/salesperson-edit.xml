@@ -1,54 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
-        class="com.haulmont.demo.maps.web.salesperson.SalespersonEdit"
-        datasource="salespersonDs"
-        focusComponent="fieldGroup"
+        focusComponent="form"
         messagesPack="com.haulmont.demo.maps.web.salesperson"
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
-    <dsContext>
-        <datasource id="salespersonDs"
-                    class="com.haulmont.demo.maps.entity.Salesperson"
-                    view="salesperson-view">
-            <datasource id="territoryDs" property="territory"/>
-        </datasource>
-    </dsContext>
+    <data>
+        <instance id="salespersonDc"
+                  class="com.haulmont.demo.maps.entity.Salesperson"
+                  view="salesperson-view">
+            <instance id="territoryDc" property="territory"/>
+            <loader/>
+        </instance>
+    </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
+    <layout expand="editActions" spacing="true">
         <hbox spacing="true">
-            <vbox spacing="true">
-                <fieldGroup id="fieldGroup"
-                            datasource="salespersonDs">
-                    <column width="250px">
-                        <field property="name"/>
-                        <field property="phone"/>
-                        <field property="territory"/>
-                        <!--<field property="latitude" caption="msg://latitude" />-->
-                        <!--<field property="longitude" caption="msg://longitude"/>-->
-                    </column>
-                </fieldGroup>
-                <!--<button id="applyLocation"-->
-                        <!--align="TOP_RIGHT"-->
-                        <!--caption="Apply location"-->
-                        <!--invoke="applyLocation"/>-->
-                <button id="removeLocationButton"
-                        align="TOP_RIGHT"
-                        caption="msg://removeLocation"
-                        invoke="removeLocation"/>
-            </vbox>
+            <form id="form" dataContainer="salespersonDc">
+                <column width="250px">
+                    <textField id="nameField" property="name"/>
+                    <textField id="phoneField" property="phone"/>
+                    <pickerField id="territoryField" property="territory">
+                        <actions>
+                            <action id="lookup" type="picker_lookup"/>
+                            <action id="clear" type="picker_clear"/>
+                        </actions>
+                    </pickerField>
+                </column>
+            </form>
             <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
                 <maps:layers selectedLayer="salespersonLayer">
-                    <maps:tile id="tiles"
-                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                               attribution="CARTO"/>
-                    <maps:vector id="territoryLayer" datasource="territoryDs"/>
-                    <maps:vector id="salespersonLayer" datasource="salespersonDs" editable="true"/>
+                    <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                    <maps:vector id="territoryLayer" dataContainer="territoryDc"/>
+                    <maps:vector id="salespersonLayer" dataContainer="salespersonDc" editable="true"/>
                 </maps:layers>
             </maps:geoMap>
         </hbox>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>

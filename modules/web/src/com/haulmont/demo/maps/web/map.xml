@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://map.caption"
+        messagesPack="com.haulmont.demo.maps.web"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <layout>
+        <maps:geoMap id="map" height="100%" width="100%" zoom="3">
+            <maps:layers>
+                <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+            </maps:layers>
+        </maps:geoMap>
+    </layout>
+</window>

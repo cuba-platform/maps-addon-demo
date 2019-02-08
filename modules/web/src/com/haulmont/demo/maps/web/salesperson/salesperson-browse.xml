@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://browseCaption"
-        class="com.haulmont.demo.maps.web.salesperson.SalespersonBrowse"
         focusComponent="salespersonsTable"
-        lookupComponent="salespersonsTable"
         messagesPack="com.haulmont.demo.maps.web.salesperson"
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
-    <dsContext>
-        <groupDatasource id="salespersonsDs"
-                         class="com.haulmont.demo.maps.entity.Salesperson"
-                         view="salesperson-view_1">
-            <query>
-                <![CDATA[select e from mapsdemo$Salesperson e]]>
-            </query>
-        </groupDatasource>
-    </dsContext>
+    <data readOnly="true">
+        <collection id="salespersonsDc"
+                    class="com.haulmont.demo.maps.entity.Salesperson"
+                    view="_local">
+            <loader id="salespersonsDl">
+                <query>
+                    <![CDATA[select e from mapsdemo$Salesperson e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true">
@@ -26,42 +26,40 @@
                   spacing="true">
                 <filter id="filter"
                         applyTo="salespersonsTable"
-                        datasource="salespersonsDs">
+                        dataLoader="salespersonsDl">
                     <properties include=".*"/>
                 </filter>
                 <groupTable id="salespersonsTable"
-                            width="100%">
+                            width="100%"
+                            dataContainer="salespersonsDc">
                     <actions>
-                        <action id="create"/>
-                        <action id="edit"/>
-                        <action id="remove"/>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
                     </actions>
                     <columns>
                         <column id="name"/>
                         <column id="phone"/>
-                        <column id="territory"/>
                     </columns>
-                    <rows datasource="salespersonsDs"/>
                     <rowsCount/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
-                        <button id="createBtn"
-                                action="salespersonsTable.create"/>
-                        <button id="editBtn"
-                                action="salespersonsTable.edit"/>
-                        <button id="removeBtn"
-                                action="salespersonsTable.remove"/>
+                        <button id="createBtn" action="salespersonsTable.create"/>
+                        <button id="editBtn" action="salespersonsTable.edit"/>
+                        <button id="removeBtn" action="salespersonsTable.remove"/>
                     </buttonsPanel>
                 </groupTable>
             </vbox>
             <maps:geoMap id="map" height="100%" width="100%" center="-99.755859, 39.164141" zoom="4">
-                <maps:layers>
-                    <maps:tile id="tiles"
-                               urlPattern="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                               attribution="CARTO"/>
-                    <maps:vector id="salespersonLayer" datasource="salespersonsDs"/>
+                <maps:layers selectedLayer="salespersonLayer">
+                    <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                    <maps:vector id="salespersonLayer" dataContainer="salespersonsDc"/>
                 </maps:layers>
             </maps:geoMap>
+        </hbox>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
         </hbox>
     </layout>
 </window>

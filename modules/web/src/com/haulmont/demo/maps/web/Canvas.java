@@ -1,29 +1,31 @@
-package com.haulmont.demo.maps.web.screens;
+package com.haulmont.demo.maps.web;
 
 import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.addon.maps.web.gui.components.CanvasLayer;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
-import com.haulmont.addon.maps.web.gui.components.PopupWindowOptions;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
-import com.haulmont.cuba.gui.components.AbstractWindow;
-import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.icons.CubaIcon;
+import com.haulmont.cuba.gui.screen.Screen;
+import com.haulmont.cuba.gui.screen.Subscribe;
+import com.haulmont.cuba.gui.screen.UiController;
+import com.haulmont.cuba.gui.screen.UiDescriptor;
 import com.vaadin.ui.Notification;
 
 import javax.inject.Inject;
-import java.util.Map;
-import java.util.function.Function;
 
-public class CanvasDemo extends AbstractWindow {
+
+@UiController("mapsdemo_Canvas")
+@UiDescriptor("canvas.xml")
+public class Canvas extends Screen {
     @Inject
     private GeoMap map;
 
     private CanvasLayer canvasLayer;
 
-    @Override
-    public void init(Map<String, Object> params) {
+    @Subscribe
+    protected void onInit(InitEvent event) {
         canvasLayer = map.getCanvas();
         map.selectCanvas();
 
@@ -38,6 +40,7 @@ public class CanvasDemo extends AbstractWindow {
                 .addRightClickListener(e -> Notification.show("Right click"));
     }
 
+
     public void drawPoint() {
         canvasLayer.drawPoint(point -> {
         });
@@ -49,7 +52,8 @@ public class CanvasDemo extends AbstractWindow {
 
     public void drawPolygon() {
         PolygonStyle style = new PolygonStyle();
-        style.setFillColor("indigo");
+        style.setFillColor("#08a343")
+                .setStrokeColor("#004912");
         canvasLayer.drawPolygon(polygon -> polygon.setStyle(style));
     }
 
