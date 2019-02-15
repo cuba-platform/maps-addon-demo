@@ -1,4 +1,4 @@
-rootProject.name = 'maps-demo'
+rootProject.name = 'mapsdemo'
 def modulePrefix = 'mapsdemo'
 include(":${modulePrefix}-global", ":${modulePrefix}-core", ":${modulePrefix}-web")
 project(":${modulePrefix}-global").projectDir = new File(settingsDir, 'modules/global')

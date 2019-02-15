@@ -10,7 +10,6 @@ import com.haulmont.demo.maps.entity.Salesperson;
 
 import javax.inject.Inject;
 
-
 @UiController("mapsdemo$Salesperson.browse")
 @UiDescriptor("salesperson-browse.xml")
 @LookupComponent("salespersonsTable")
@@ -21,12 +20,14 @@ public class SalespersonBrowse extends StandardLookup<Salesperson> {
 
     @Subscribe
     protected void onInit(InitEvent event) {
-        VectorLayer<Salesperson> salespersonLayer = ((VectorLayer<Salesperson>) map.getLayer("salespersonLayer"));
-        FontPointIcon markerIcon = new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN);
-        markerIcon.setIconPathFillColor("#42a1f4");
-        markerIcon.setIconPathStrokeColor("#025ee8");
-        markerIcon.setIconTextFillColor("white");
-        salespersonLayer.setStyle(new PointStyle(markerIcon));
+        VectorLayer<Salesperson> salespersonLayer = map.getLayer("salespersonLayer");
+
+        PointStyle locationStyle = new PointStyle(
+                new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
+                        .setIconPathFillColor("#42a1f4")
+                        .setIconPathStrokeColor("#025ee8")
+                        .setIconTextFillColor("white"));
+        salespersonLayer.setStyleProvider(salesperson -> locationStyle);
 
         salespersonLayer.setPopupContentProvider(Salesperson::getName);
     }

@@ -1,7 +1,6 @@
 package com.haulmont.demo.maps.web.salesperson;
 
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
-import com.haulmont.addon.maps.web.gui.components.layer.Layer;
 import com.haulmont.addon.maps.web.gui.components.layer.VectorLayer;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
@@ -27,21 +26,22 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
     @Inject
     private GeoMap map;
 
-
     @Subscribe
     protected void onAfterInit(AfterInitEvent event) {
         VectorLayer<Territory> territoryLayer = map.getLayer("territoryLayer");
-        territoryLayer.setStyle(new PolygonStyle()
+        PolygonStyle territoryStyle = new PolygonStyle()
                 .setFillColor("#08a343")
                 .setStrokeColor("#004912")
                 .setFillOpacity(0.3)
-                .setStrokeWeight(1));
+                .setStrokeWeight(1);
+        territoryLayer.setStyleProvider(territory -> territoryStyle);
 
-        VectorLayer<Salesperson> locationLayer = map.getLayer("salespersonLayer");
-        locationLayer.setStyle(new PointStyle(new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
+        VectorLayer<Salesperson> salespersonLayer = map.getLayer("salespersonLayer");
+        PointStyle locationStyle = new PointStyle(new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
                 .setIconPathFillColor("#42a1f4")
                 .setIconPathStrokeColor("#2c28ff")
-                .setIconTextFillColor("white")));
+                .setIconTextFillColor("white"));
+        salespersonLayer.setStyleProvider(salesperson -> locationStyle);
     }
 
     @Subscribe(target = Target.DATA_CONTEXT)

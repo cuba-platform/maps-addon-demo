@@ -47,7 +47,7 @@ create table MAPSDEMO_SALESPERSON (
     --
     NAME varchar(255),
     PHONE varchar(255),
-    LOCATION varchar(100),
+    LOCATION VARCHAR(100),
     TERRITORY_ID varchar(36),
     --
     primary key (ID)

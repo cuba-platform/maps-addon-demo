@@ -3,7 +3,10 @@ package com.haulmont.demo.maps.web.order;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.HeatMapOptions;
 import com.haulmont.cuba.gui.model.CollectionContainer;
-import com.haulmont.cuba.gui.screen.*;
+import com.haulmont.cuba.gui.screen.Screen;
+import com.haulmont.cuba.gui.screen.Subscribe;
+import com.haulmont.cuba.gui.screen.UiController;
+import com.haulmont.cuba.gui.screen.UiDescriptor;
 import com.haulmont.demo.maps.entity.Order;
 import com.vividsolutions.jts.geom.Point;
 
@@ -11,12 +14,9 @@ import javax.inject.Inject;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
-@UiController("mapsdemo$Order.heatmap")
+@UiController("mapsdemo_OrderHeatmap")
 @UiDescriptor("order-heatmap.xml")
-@LookupComponent("ordersTable")
-@LoadDataBeforeShow
-public class OrderHeatMap extends StandardLookup<Order> {
+public class OrderHeatMap extends Screen {
     @Inject
     private CollectionContainer<Order> ordersDc;
 
@@ -25,6 +25,8 @@ public class OrderHeatMap extends StandardLookup<Order> {
 
     @Subscribe
     protected void onBeforeShow(BeforeShowEvent event) {
+        getScreenData().loadAll();
+
         HeatMapOptions options = new HeatMapOptions()
                 .setMinOpacity(0.3)
                 .setMaxZoom(7D)
@@ -37,8 +39,4 @@ public class OrderHeatMap extends StandardLookup<Order> {
 
         map.addHeatMap(pointIntensityMap, options);
     }
-    
-    
-
-
 }

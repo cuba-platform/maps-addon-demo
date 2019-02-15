@@ -51,8 +51,8 @@ public class Canvas extends Screen {
     }
 
     public void drawPolygon() {
-        PolygonStyle style = new PolygonStyle();
-        style.setFillColor("#08a343")
+        PolygonStyle style = new PolygonStyle()
+                .setFillColor("#08a343")
                 .setStrokeColor("#004912");
         canvasLayer.drawPolygon(polygon -> polygon.setStyle(style));
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
-        caption="msg://heatMapCaption"
-        messagesPack="com.haulmont.demo.maps.web.order"
-        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd"
+        caption="msg://caption"
+        messagesPack="com.haulmont.demo.maps.web.order">
     <data readOnly="true">
         <collection id="ordersDc"
                     class="com.haulmont.demo.maps.entity.Order"
