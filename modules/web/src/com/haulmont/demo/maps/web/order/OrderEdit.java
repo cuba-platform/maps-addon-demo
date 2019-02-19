@@ -1,7 +1,6 @@
 package com.haulmont.demo.maps.web.order;
 
-import com.haulmont.addon.maps.web.gui.components.GeoMap;
-import com.haulmont.addon.maps.web.gui.components.layer.VectorLayer;
+import com.haulmont.addon.maps.web.gui.components.layer.style.GeometryStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.ImagePointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.cuba.gui.components.TextField;
@@ -20,21 +19,16 @@ import javax.inject.Inject;
 public class OrderEdit extends StandardEditor<Order> {
 
     @Inject
-    private GeoMap map;
-
-    @Inject
     private TextField<Double> latitudeField;
 
     @Inject
     private TextField<Double> longitudeField;
 
-    @Subscribe
-    protected void onInit(InitEvent event) {
-        VectorLayer<Order> orderLayer = map.getLayer("orderLayer");
-        PointStyle pointStyle = new PointStyle(
+    @Install(to = "map.orderLayer", subject = "styleProvider")
+    private GeometryStyle orderLayerStyleProvider(Order order) {
+        return new PointStyle(
                 new ImagePointIcon("classpath:/com/haulmont/demo/maps/web/cuba_icon.png")
                         .setIconSize(44, 44));
-        orderLayer.setStyleProvider(order -> pointStyle);
     }
 
     @Subscribe(id = "orderDc", target = Target.DATA_CONTAINER)
@@ -50,6 +44,4 @@ public class OrderEdit extends StandardEditor<Order> {
             }
         }
     }
-
-
 }

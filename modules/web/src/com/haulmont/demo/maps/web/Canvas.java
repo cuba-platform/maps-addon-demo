@@ -6,6 +6,7 @@ import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
+import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.haulmont.cuba.gui.screen.Screen;
 import com.haulmont.cuba.gui.screen.Subscribe;
@@ -36,25 +37,32 @@ public class Canvas extends Screen {
                         .setIconTextFillColor("black")
                         .setIconPathStrokeColor("black")))
                 .setPopupContent("Taxi location")
-                .setEditable(true)
-                .addRightClickListener(e -> Notification.show("Right click"));
+                .setEditable(true);
     }
 
+    @Subscribe("map.canvas")
+    private void onCanvasPointClick(CanvasLayer.Point.RightClickEvent clickEvent) {
+        Notification.show("Right click");
+    }
 
-    public void drawPoint() {
+    @Subscribe("drawPoint")
+    private void onDrawPointClick(Button.ClickEvent event) {
         canvasLayer.drawPoint(point -> {
         });
     }
 
-    public void drawPolyline() {
+    @Subscribe("drawPolyline")
+    private void onDrawPolylineClick(Button.ClickEvent event) {
         canvasLayer.drawPolyline(polyline -> Notification.show("Drawn polyline"));
     }
 
-    public void drawPolygon() {
+    @Subscribe("drawPolygon")
+    private void onDrawPolygonClick(Button.ClickEvent event) {
         PolygonStyle style = new PolygonStyle()
                 .setFillColor("#08a343")
                 .setStrokeColor("#004912");
         canvasLayer.drawPolygon(polygon -> polygon.setStyle(style));
     }
+
 
 }

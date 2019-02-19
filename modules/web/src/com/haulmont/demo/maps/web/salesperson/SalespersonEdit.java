@@ -1,8 +1,7 @@
 package com.haulmont.demo.maps.web.salesperson;
 
-import com.haulmont.addon.maps.web.gui.components.GeoMap;
-import com.haulmont.addon.maps.web.gui.components.layer.VectorLayer;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
+import com.haulmont.addon.maps.web.gui.components.layer.style.GeometryStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
 import com.haulmont.cuba.gui.Notifications;
@@ -23,25 +22,21 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
     @Inject
     private Notifications notifications;
 
-    @Inject
-    private GeoMap map;
-
-    @Subscribe
-    protected void onAfterInit(AfterInitEvent event) {
-        VectorLayer<Territory> territoryLayer = map.getLayer("territoryLayer");
-        PolygonStyle territoryStyle = new PolygonStyle()
+    @Install(to = "map.territoryLayer", subject = "styleProvider")
+    private GeometryStyle territoryLayerStyleProvider(Territory territory) {
+        return new PolygonStyle()
                 .setFillColor("#08a343")
                 .setStrokeColor("#004912")
                 .setFillOpacity(0.3)
                 .setStrokeWeight(1);
-        territoryLayer.setStyleProvider(territory -> territoryStyle);
+    }
 
-        VectorLayer<Salesperson> salespersonLayer = map.getLayer("salespersonLayer");
-        PointStyle locationStyle = new PointStyle(new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
+    @Install(to = "map.salespersonLayer", subject = "styleProvider")
+    private GeometryStyle salespersonLayerStyleProvider(Salesperson salesperson) {
+        return new PointStyle(new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
                 .setIconPathFillColor("#42a1f4")
                 .setIconPathStrokeColor("#2c28ff")
                 .setIconTextFillColor("white"));
-        salespersonLayer.setStyleProvider(salesperson -> locationStyle);
     }
 
     @Subscribe(target = Target.DATA_CONTEXT)
@@ -57,6 +52,4 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
                     .show();
         }
     }
-
-
 }

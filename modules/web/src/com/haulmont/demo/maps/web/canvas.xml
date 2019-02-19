@@ -5,9 +5,9 @@
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
     <layout expand="map">
         <hbox spacing="true">
-            <button id="drawPoint" caption="msg://drawPoint" invoke="drawPoint"/>
-            <button id="drawPolyline" caption="msg://drawPolyline" invoke="drawPolyline"/>
-            <button id="drawPolygon" caption="msg://drawPolygon" invoke="drawPolygon"/>
+            <button id="drawPoint" caption="msg://drawPoint"/>
+            <button id="drawPolyline" caption="msg://drawPolyline"/>
+            <button id="drawPolygon" caption="msg://drawPolygon"/>
         </hbox>
         <maps:geoMap id="map" width="100%" center="40,40" zoom="4">
             <maps:layers>
