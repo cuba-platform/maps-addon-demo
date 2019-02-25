@@ -5,11 +5,15 @@ import com.haulmont.addon.maps.web.gui.components.layer.style.GeometryStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
 import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.components.Action;
+import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.demo.maps.entity.Salesperson;
 import com.haulmont.demo.maps.entity.Territory;
+import com.haulmont.demo.maps.web.territory.TerritoryDialogBrowse;
 
 import javax.inject.Inject;
 
@@ -21,6 +25,12 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
 
     @Inject
     private Notifications notifications;
+
+    @Inject
+    private ScreenBuilders screenBuilder;
+
+    @Inject
+    private PickerField<Territory> territoryField;
 
     @Install(to = "map.territoryLayer", subject = "styleProvider")
     private GeometryStyle territoryLayerStyleProvider(Territory territory) {
@@ -38,6 +48,16 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
                 .setIconPathStrokeColor("#2c28ff")
                 .setIconTextFillColor("white"));
     }
+
+    @Subscribe("territoryField.lookup")
+    private void onTerritoryFieldLookup(Action.ActionPerformedEvent event) {
+        screenBuilder.lookup(territoryField)
+                .withScreenClass(TerritoryDialogBrowse.class)
+                .withLaunchMode(OpenMode.DIALOG)
+                .build()
+                .show();
+    }
+
 
     @Subscribe(target = Target.DATA_CONTEXT)
     protected void onPreCommit(DataContext.PreCommitEvent event) {

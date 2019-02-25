@@ -3,11 +3,8 @@ package com.haulmont.demo.maps.web.territory;
 import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.layer.style.GeometryStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
-import com.haulmont.cuba.gui.components.Action;
-import com.haulmont.cuba.gui.components.EditableChangeNotifier;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.demo.maps.entity.Territory;
-import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
