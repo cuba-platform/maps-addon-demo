@@ -5,27 +5,35 @@
         messagesPack="com.haulmont.demo.maps.web.order"
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
     <data>
-        <instance id="orderDc"
-                  class="com.haulmont.demo.maps.entity.Order"
-                  view="_local">
+        <instance id="orderDc" class="com.haulmont.demo.maps.entity.Order" view="order-view">
             <loader/>
+            <instance id="salespersonDc" property="salesperson"/>
         </instance>
+        <collection id="salespersonsDc" class="com.haulmont.demo.maps.entity.Salesperson" view="_local">
+            <loader id="salespersonsDl">
+                <query><![CDATA[select e from mapsdemo$Salesperson e]]></query>
+            </loader>
+        </collection>
     </data>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode height="600" width="800"/>
     <layout expand="editActions" spacing="true">
         <hbox spacing="true">
-            <form id="form" dataContainer="orderDc">
+            <form id="form" dataContainer="orderDc" captionPosition="TOP">
                 <column width="250px">
                     <textField id="amountField" property="amount"/>
                     <dateField id="dateField" property="date"/>
-                    <textField id="longitudeField" caption="msg://longitude" property="longitude" datatype="geocoordinate"/>
-                    <textField id="latitudeField" caption="msg://latitude" property="latitude" datatype="geocoordinate"/>
+                    <lookupField id="salespersonField" property="salesperson" optionsContainer="salespersonsDc"
+                                 icon="font-icon:USER"/>
+                    <textField id="longitudeField" caption="msg://longitude" property="longitude"
+                               datatype="geocoordinate"/>
+                    <textField id="latitudeField" caption="msg://latitude" property="latitude"
+                               datatype="geocoordinate"/>
                 </column>
             </form>
             <maps:geoMap id="map" height="400px" width="800px" center="-99.755859, 39.164141" zoom="4">
                 <maps:layers selectedLayer="orderLayer">
                     <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                    <maps:vector id="salespersonLayer" dataContainer="salespersonDc" editable="true"/>
                     <maps:vector id="orderLayer" dataContainer="orderDc" editable="true"/>
                 </maps:layers>
             </maps:geoMap>

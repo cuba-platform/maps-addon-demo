@@ -43,7 +43,7 @@ public class SalespersonEdit extends StandardEditor<Salesperson> {
 
     @Install(to = "map.salespersonLayer", subject = "styleProvider")
     private GeometryStyle salespersonLayerStyleProvider(Salesperson salesperson) {
-        return new PointStyle(new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
+        return new PointStyle(new FontPointIcon(CubaIcon.USER)
                 .setIconPathFillColor("#42a1f4")
                 .setIconPathStrokeColor("#2c28ff")
                 .setIconTextFillColor("white"));

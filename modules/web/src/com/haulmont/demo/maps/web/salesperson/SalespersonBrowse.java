@@ -16,7 +16,7 @@ public class SalespersonBrowse extends StandardLookup<Salesperson> {
     @Install(to = "map.salespersonLayer", subject = "styleProvider")
     private GeometryStyle salespersonLayerStyleProvider(Salesperson salesperson) {
         return new PointStyle(
-                new FontPointIcon(CubaIcon.ARROW_CIRCLE_O_DOWN)
+                new FontPointIcon(CubaIcon.USER)
                         .setIconPathFillColor("#42a1f4")
                         .setIconPathStrokeColor("#025ee8")
                         .setIconTextFillColor("white"));

@@ -30,7 +30,6 @@ public class OrderHeatMap extends Screen {
         HeatMapOptions options = new HeatMapOptions()
                 .setMinOpacity(0.3)
                 .setMaxZoom(7D)
-                .setRadius(35)
                 .setMaximumIntensity(500D);
 
         Map<Point, Double> pointIntensityMap = ordersDc.getItems().stream().collect(

@@ -3,10 +3,24 @@
         caption="msg://map.caption"
         messagesPack="com.haulmont.demo.maps.web"
         xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd">
+    <data>
+        <collection id="territoriesDc" class="com.haulmont.demo.maps.entity.Territory" view="_local">
+            <loader id="forestsDl">
+                <query><![CDATA[select e from mapsdemo$Territory e]]></query>
+            </loader>
+        </collection>
+        <collection id="salespersonsDc" class="com.haulmont.demo.maps.entity.Salesperson" view="_local">
+            <loader id="salespersonsDl">
+                <query><![CDATA[select e from mapsdemo$Salesperson e]]></query>
+            </loader>
+        </collection>
+    </data>
     <layout>
-        <maps:geoMap id="map" height="100%" width="100%" zoom="3">
+        <maps:geoMap id="map" height="100%" width="100%" center="-99.755859, 39.164141" zoom="5">
             <maps:layers>
                 <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                <maps:vector id="territories" dataContainer="territoriesDc"/>
+                <maps:vector id="salespersons" dataContainer="salespersonsDc"/>
             </maps:layers>
         </maps:geoMap>
     </layout>

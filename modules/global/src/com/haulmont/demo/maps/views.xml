@@ -6,4 +6,9 @@
             <property name="polygon"/>
         </property>
     </view>
+    <view entity="mapsdemo$Order" name="order-view" extends="_local">
+        <property name="salesperson" view="_minimal">
+            <property name="location"/>
+        </property>
+    </view>
 </views>
