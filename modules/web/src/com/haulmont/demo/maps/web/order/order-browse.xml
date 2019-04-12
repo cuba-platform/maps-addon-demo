@@ -41,6 +41,7 @@
                 <button id="createBtn" action="ordersTable.create"/>
                 <button id="editBtn" action="ordersTable.edit"/>
                 <button id="removeBtn" action="ordersTable.remove"/>
+                <button id="showOrdersCluster" caption="msg://showOrdersCluster"/>
                 <button id="showHeatMapBtn" caption="msg://showHeatMap"/>
             </buttonsPanel>
         </groupTable>

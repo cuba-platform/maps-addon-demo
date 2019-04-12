@@ -34,7 +34,7 @@ public class OrderHeatMap extends Screen {
 
         Map<Point, Double> pointIntensityMap = ordersDc.getItems().stream().collect(
                 Collectors.toMap(Order::getLocation,
-                        order -> order.getAmount() != null ? order.getAmount() : 0));
+                        order -> order.getAmount() != null ? order.getAmount().doubleValue() : 0));
 
         map.addHeatMap(pointIntensityMap, options);
     }

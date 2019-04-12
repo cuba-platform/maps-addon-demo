@@ -1,23 +1,23 @@
 
 buildscript {
     ext.cubaVersion = '7.0.0'
-    repositories {
-        mavenLocal()
-        maven {
-            url 'https://repo.cuba-platform.com/content/groups/work'
-            credentials {
-                username(rootProject.hasProperty('repoUser') ? rootProject['repoUser'] : 'cuba')
-                password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
-            }
-        }
-
-        maven {
-            url 'http://download.osgeo.org/webdav/geotools/'
-        }
-
-    }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
+        repositories {
+            mavenLocal()
+            maven {
+                url 'https://repo.cuba-platform.com/content/groups/work'
+                credentials {
+                    username(rootProject.hasProperty('repoUser') ? rootProject['repoUser'] : 'cuba')
+                    password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
+                }
+            }
+
+            maven {
+                url 'http://download.osgeo.org/webdav/geotools/'
+            }
+
+        }
     }
 }
 
@@ -140,6 +140,7 @@ configure(webModule) {
         compile(globalModule)
     }
 
+
     task webArchive(type: Zip) {
         from file("$buildDir/web")
         from file('web')
@@ -177,6 +178,7 @@ configure(webModule) {
         appJars(modulePrefix + '-global', modulePrefix + '-web')
     }
 }
+
 
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf") {
     delete("$cuba.tomcat.dir/shared")

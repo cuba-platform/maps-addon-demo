@@ -1,6 +1,5 @@
 package com.haulmont.demo.maps.entity;
 
-import com.haulmont.demo.maps.datatype.GeoCoordinateDatatype;
 import com.haulmont.addon.maps.gis.Geometry;
 import com.haulmont.addon.maps.gis.converters.wkt.CubaPointWKTConverter;
 import com.haulmont.addon.maps.gis.utils.GeometryUtils;
@@ -19,7 +18,7 @@ public class Order extends StandardEntity {
     private static final long serialVersionUID = -749725998038408728L;
 
     @Column(name = "AMOUNT")
-    protected Double amount;
+    protected Integer amount;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_")
@@ -35,11 +34,11 @@ public class Order extends StandardEntity {
     @Column(name = "LOCATION")
     protected Point location;
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
@@ -67,13 +66,13 @@ public class Order extends StandardEntity {
         return location;
     }
 
-    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    @MetaProperty(datatype = "geocoordinate")
     public Double getLatitude() {
         if (location == null) return null;
         return location.getY();
     }
 
-    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    @MetaProperty(datatype = "geocoordinate")
     public Double getLongitude() {
         if (location == null) return null;
         return location.getX();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:maps="http://schemas.haulmont.com/maps/0.1/ui-component.xsd"
+        caption="msg://caption"
+        messagesPack="com.haulmont.demo.maps.web.order">
+    <data readOnly="true">
+        <collection id="ordersDc"
+                    class="com.haulmont.demo.maps.entity.Order"
+                    view="_local">
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from mapsdemo$Order e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="800"
+                width="1200"/>
+    <layout expand="map">
+        <button id="generateOrdersBtn" caption="msg://generateOrdersBtn"/>
+        <maps:geoMap id="map" width="100%" zoom="5" center="-99.755859, 39.164141">
+            <maps:layers selectedLayer="orders">
+                <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
+                <maps:vector id="orders" dataContainer="ordersDc">
+                    <maps:cluster/>
+                </maps:vector>
+            </maps:layers>
+        </maps:geoMap>
+    </layout>
+</window>

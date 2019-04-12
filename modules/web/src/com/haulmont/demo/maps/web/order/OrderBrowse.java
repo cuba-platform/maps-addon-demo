@@ -20,4 +20,10 @@ public class OrderBrowse extends StandardLookup<Order> {
         screens.create(OrderHeatMap.class, OpenMode.DIALOG).show();
     }
 
+    @Subscribe("showOrdersCluster")
+    private void onShowOrdersClusterClick(Button.ClickEvent event) {
+        screens.create(OrderMapCluster.class, OpenMode.DIALOG).show();
+    }
+
+
 }

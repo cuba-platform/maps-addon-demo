@@ -9,7 +9,7 @@ create table MAPSDEMO_ORDER (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    AMOUNT double precision,
+    AMOUNT integer,
     DATE_ date,
     SALESPERSON_ID varchar(36),
     LOCATION VARCHAR(100),
