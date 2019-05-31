@@ -10,7 +10,7 @@
             <button id="drawPolygon" caption="msg://drawPolygon"/>
         </hbox>
         <maps:geoMap id="map" width="100%" center="40,40" zoom="4">
-            <maps:layers>
+            <maps:layers selectedLayer="CANVAS">
                 <maps:tile id="tiles" tileProvider="mapsdemo_CartoTileProvider"/>
             </maps:layers>
         </maps:geoMap>

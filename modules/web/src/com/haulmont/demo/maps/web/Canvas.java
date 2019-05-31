@@ -28,7 +28,6 @@ public class Canvas extends Screen {
     @Subscribe
     protected void onInit(InitEvent event) {
         canvasLayer = map.getCanvas();
-        map.selectCanvas();
 
         CanvasLayer.Point location = canvasLayer.addPoint(GeometryUtils.createPoint(50, 50));
         location.setStyle(new PointStyle(

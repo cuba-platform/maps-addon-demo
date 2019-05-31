@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '7.0.0'
+    ext.cubaVersion = '7.0.5'
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
         repositories {
@@ -47,7 +47,7 @@ dependencies {
     appComponent("com.haulmont.addon.maps:maps-global:0.2-SNAPSHOT")
 }
 
-def hsql = 'org.hsqldb:hsqldb:2.2.9'
+def hsql = 'org.hsqldb:hsqldb:2.4.1'
 
 configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'java')
