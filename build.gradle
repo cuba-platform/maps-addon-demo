@@ -13,10 +13,6 @@ buildscript {
                 }
             }
 
-            maven {
-                url 'http://download.osgeo.org/webdav/geotools/'
-            }
-
         }
     }
 }
@@ -44,7 +40,7 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
-    appComponent("com.haulmont.addon.maps:maps-global:0.2-SNAPSHOT")
+    appComponent("com.haulmont.addon.maps:maps-global:0.1.alpha")
 }
 
 def hsql = 'org.hsqldb:hsqldb:2.4.1'

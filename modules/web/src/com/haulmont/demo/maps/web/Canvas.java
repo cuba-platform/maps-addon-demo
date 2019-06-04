@@ -6,13 +6,13 @@ import com.haulmont.addon.maps.web.gui.components.GeoMap;
 import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PolygonStyle;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.haulmont.cuba.gui.screen.Screen;
 import com.haulmont.cuba.gui.screen.Subscribe;
 import com.haulmont.cuba.gui.screen.UiController;
 import com.haulmont.cuba.gui.screen.UiDescriptor;
-import com.vaadin.ui.Notification;
 
 import javax.inject.Inject;
 
@@ -23,10 +23,13 @@ public class Canvas extends Screen {
     @Inject
     private GeoMap map;
 
+    @Inject
+    private Notifications notifications;
+
     private CanvasLayer canvasLayer;
 
     @Subscribe
-    protected void onInit(InitEvent event) {
+    private void onBeforeShow(BeforeShowEvent event) {
         canvasLayer = map.getCanvas();
 
         CanvasLayer.Point location = canvasLayer.addPoint(GeometryUtils.createPoint(50, 50));
@@ -41,7 +44,9 @@ public class Canvas extends Screen {
 
     @Subscribe("map.canvas")
     private void onCanvasPointClick(CanvasLayer.Point.RightClickEvent clickEvent) {
-        Notification.show("Right click");
+        notifications.create()
+                .withCaption("Right click")
+                .show();
     }
 
     @Subscribe("drawPoint")
@@ -52,7 +57,10 @@ public class Canvas extends Screen {
 
     @Subscribe("drawPolyline")
     private void onDrawPolylineClick(Button.ClickEvent event) {
-        canvasLayer.drawPolyline(polyline -> Notification.show("Drawn polyline"));
+        canvasLayer.drawPolyline(polyline ->
+                notifications.create()
+                        .withCaption("Drawn polyline")
+                        .show());
     }
 
     @Subscribe("drawPolygon")

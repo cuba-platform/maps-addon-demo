@@ -5,11 +5,11 @@ import com.haulmont.addon.maps.web.gui.components.layer.style.FontPointIcon;
 import com.haulmont.addon.maps.web.gui.components.layer.style.GeometryStyle;
 import com.haulmont.addon.maps.web.gui.components.layer.style.PointStyle;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.demo.maps.entity.Order;
-import com.vaadin.ui.Notification;
 import org.apache.commons.lang3.RandomUtils;
 
 import javax.inject.Inject;
@@ -22,6 +22,9 @@ public class OrderMapCluster extends Screen {
     @Inject
     private DataManager dataManager;
 
+    @Inject
+    private Notifications notifications;
+
     @Install(to = "map.orders", subject = "styleProvider")
     private GeometryStyle orderLayerStyleProvider(Order order) {
         return new PointStyle(
@@ -31,7 +34,9 @@ public class OrderMapCluster extends Screen {
 
     @Subscribe("map.orders")
     private void onOrderSelected(VectorLayer.GeoObjectSelectedEvent<Order> event) {
-        Notification.show("Selected " + event.getItem());
+        notifications.create()
+                .withCaption("Selected " + event.getItem())
+                .show();
     }
 
     @Subscribe("generateOrdersBtn")
