@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '7.0.5'
+    ext.cubaVersion = '7.1.0'
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
         repositories {
@@ -10,6 +10,14 @@ buildscript {
                 credentials {
                     username(rootProject.hasProperty('repoUser') ? rootProject['repoUser'] : 'cuba')
                     password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
+                }
+            }
+
+            maven {
+                url 'https://repo.cuba-platform.com/content/groups/premium'
+                credentials {
+                    username(rootProject.hasProperty('premiumRepoUser') ? rootProject['premiumRepoUser'] : System.getenv('CUBA_PREMIUM_USER'))
+                    password(rootProject.hasProperty('premiumRepoPass') ? rootProject['premiumRepoPass'] : System.getenv('CUBA_PREMIUM_PASSWORD'))
                 }
             }
 
@@ -30,8 +38,8 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'com.haulmont.demo.maps'
-        version = '0.2'
-        isSnapshot = true
+        version = '1.0'
+        isSnapshot = false
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
@@ -40,7 +48,7 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
-    appComponent("com.haulmont.addon.maps:maps-global:0.1.alpha")
+    appComponent("com.haulmont.addon.maps:maps-global:1.1-SNAPSHOT")
 }
 
 def hsql = 'org.hsqldb:hsqldb:2.4.1'

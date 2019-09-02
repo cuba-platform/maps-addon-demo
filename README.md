@@ -1,6 +1,6 @@
 # Maps demo
 
-This is an example of CUBA application working with the [CUBA Maps add-on](https://www.cuba-platform.com/marketplace/maps/).
+This is an example of CUBA application working with the [CUBA Maps premium add-on](https://www.cuba-platform.com/marketplace/maps/).
 
 The application has three entities with corresponding screens:
 
@@ -16,7 +16,9 @@ The *Canvas* screen demonstrates examples of working with the map's canvas.
 
 The *Orders* screen contains a list of orders. If you click to the *Show map* button, a screen with a map will be opened in a dialog. The map contains a layer of orders with clustering enabled. You can click to the *Generate 100 orders* button in order to automatically generate 100 new orders. The *Orders* screen also has *Show heatmap* button. If you click this button, you will see a heatmap of orders opened in a new screen.
 
-Based on CUBA Platform 7.0.5
+Based on CUBA Platform 7.1.0
+
+Note: the application requires the commercial subscription that includes Maps premium add-on. You can also get [trial](https://www.cuba-platform.com/store/#/store/) to run this application on your local environment.
 
 ## Issues
 Please use https://www.cuba-platform.com/discuss for discussion, support, and reporting problems coressponding to this sample.

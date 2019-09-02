@@ -5,7 +5,7 @@ import com.haulmont.addon.maps.gis.converters.wkt.CubaPolygonWKTConverter;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
-import com.vividsolutions.jts.geom.Polygon;
+import org.locationtech.jts.geom.Polygon;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;

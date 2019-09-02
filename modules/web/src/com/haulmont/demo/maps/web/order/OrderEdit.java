@@ -9,7 +9,7 @@ import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.demo.maps.entity.Order;
 import com.haulmont.demo.maps.entity.Salesperson;
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import javax.inject.Inject;
 

@@ -9,7 +9,7 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDeleteInverse;
 import com.haulmont.cuba.core.global.DeletePolicy;
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 
@@ -60,13 +60,13 @@ public class Salesperson extends StandardEntity {
         return location;
     }
 
-    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    @MetaProperty(datatype = GeoCoordinateDatatype.NAME, related = "location")
     public Double getLatitude() {
         if (location == null) return null;
         return location.getY();
     }
 
-    @MetaProperty(datatype = GeoCoordinateDatatype.NAME)
+    @MetaProperty(datatype = GeoCoordinateDatatype.NAME, related = "location")
     public Double getLongitude() {
         if (location == null) return null;
         return location.getX();

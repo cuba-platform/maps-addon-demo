@@ -6,7 +6,7 @@ import com.haulmont.addon.maps.gis.utils.GeometryUtils;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
-import com.vividsolutions.jts.geom.Point;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -66,13 +66,13 @@ public class Order extends StandardEntity {
         return location;
     }
 
-    @MetaProperty(datatype = "geocoordinate")
+    @MetaProperty(datatype = "geocoordinate", related = "location")
     public Double getLatitude() {
         if (location == null) return null;
         return location.getY();
     }
 
-    @MetaProperty(datatype = "geocoordinate")
+    @MetaProperty(datatype = "geocoordinate", related = "location")
     public Double getLongitude() {
         if (location == null) return null;
         return location.getX();
