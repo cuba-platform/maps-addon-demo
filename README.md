@@ -1,6 +1,8 @@
-# Maps demo
+# Maps Demo
 
-This is an example of CUBA application working with the [CUBA Maps premium add-on](https://www.cuba-platform.com/marketplace/maps/).
+This is an example of CUBA application working with the [CUBA Maps premium add-on](https://www.cuba-platform.com/marketplace/maps/). Based on CUBA Platform 7.1.0
+
+## Overview
 
 The application has three entities with corresponding screens:
 
@@ -16,9 +18,17 @@ The *Canvas* screen demonstrates examples of working with the map's canvas.
 
 The *Orders* screen contains a list of orders. If you click to the *Show map* button, a screen with a map will be opened in a dialog. The map contains a layer of orders with clustering enabled. You can click to the *Generate 100 orders* button in order to automatically generate 100 new orders. The *Orders* screen also has *Show heatmap* button. If you click this button, you will see a heatmap of orders opened in a new screen.
 
-Based on CUBA Platform 7.1.0
+*Note*: the application requires the commercial subscription that includes Maps premium add-on.
 
-Note: the application requires the commercial subscription that includes Maps premium add-on. You can also get [trial](https://www.cuba-platform.com/store/#/store/) to run this application on your local environment.
+## How to Install the Maps Add-on Trial Version
+
+You can get trial subscription from CUBA Marketplace to run this application on your local environment. After getting trial subscription you'll receive an email with a link for downloading ZIP archive with artifacts.
+
+To install the trial version of Maps add-on:
+1. Get trial subscription from [CUBA Marketplace](https://www.cuba-platform.com/marketplace/maps/). You'll get an email with a link and instructions.
+2. Download ZIP archive with artifacts at link from the email.
+3. Clone the repository of this demo project.
+4. Follow the instructions of trial installation in Maps add-on [documentation](https://doc.cuba-platform.com/maps-1.1/#_installation_of_trial_version).     
 
 ## Issues
-Please use https://www.cuba-platform.com/discuss for discussion, support, and reporting problems coressponding to this sample.
+Please use https://www.cuba-platform.com/discuss for discussion, support, and reporting problems corresponding to this sample.
