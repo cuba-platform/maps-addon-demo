@@ -31,15 +31,16 @@ To install the trial version of Maps add-on:
 
 3. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operating system:
 
- * Windows - <root>\Users\<username>
- * Linux - /home/<username>
- * macOS - /Users/<username>
+  * Windows - <root>\Users\<username>
+  * Linux - /home/<username>
+  * macOS - /Users/<username>
 
 4. Create folder `repository` in `.m2`.
 
 5. Unzip the file with artifacts into this directory. You should get the following directory structure:
 
  ![structure](images/structure.png)
+ 
 6. Clone the repository of this demo project.
 
 7. Open demo project in CUBA Studio.
@@ -47,9 +48,11 @@ To install the trial version of Maps add-on:
 8. Open `build.gradle` file, find a string with add-on coordinates and replace the add-on version with the latest one. Check the latest version on [CUBA Marketplace](https://www.cuba-platform.com/marketplace/maps/).
 
  ![version](images/version.png)
+ 
 9. Then add `.trial` to the end of add-on coordinates.
 
  ![trial](images/trial.png)
+ 
 10. Go to *CUBA -> Build Tasks -> Deploy* to check that the add-on was installed successfully.     
 
 ## Issues
