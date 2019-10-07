@@ -31,11 +31,11 @@ To install the trial version of Maps add-on:
 
 3. Go to the user's home directory and create `.m2` folder if it doesn't exist. It is your local Maven repository. Default home directory for operating system:
 
-  * Windows - <root>\Users\<username>
-  * Linux - /home/<username>
-  * macOS - /Users/<username>
+  * Windows - `C:\Users\<username>`
+  * Linux - `/home/<username>`
+  * macOS - `/Users/<username>`
 
-4. Create folder `repository` in `.m2`.
+4. Create `repository` folder in `.m2`.
 
 5. Unzip the file with artifacts into this directory. You should get the following directory structure:
 
