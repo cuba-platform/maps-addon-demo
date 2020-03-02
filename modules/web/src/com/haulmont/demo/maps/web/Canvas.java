@@ -39,11 +39,19 @@ public class Canvas extends Screen {
                         .setIconTextFillColor("black")
                         .setIconPathStrokeColor("black")))
                 .setPopupContent("Taxi location")
+                .setTooltipContent("Taxi location")
                 .setEditable(true);
     }
 
     @Subscribe("map.canvas")
-    private void onCanvasPointClick(CanvasLayer.Point.RightClickEvent clickEvent) {
+    private void onCanvasPointClick(CanvasLayer.Point.ClickEvent clickEvent) {
+        notifications.create()
+                .withCaption("Click")
+                .show();
+    }
+
+    @Subscribe("map.canvas")
+    private void onCanvasPointRightClick(CanvasLayer.Point.RightClickEvent clickEvent) {
         notifications.create()
                 .withCaption("Right click")
                 .show();
